@@ -1,3 +1,1 @@
-Piggy Power: Rooster reunion update
-
-Upload index.html and rooster-reunion.wav to the root of FlyingHailStorm/EnergyBoost, replacing index.html. First tap charges energy and changes the button to 'I WANT TO SEE MY MAN!'. Second tap plays the original WAV jingle and animates Rooster running over to kiss Piggy. 'Need another boost?' resets the sequence. Works on mobile and supports reduced-motion preferences.
+Button fix: alternates TOP UP MY ENERGY +100 → I WANT TO SEE MY MAN! → TOP UP MY ENERGY +100 on successive presses. The kiss animation and WAV play on the 'I WANT TO SEE MY MAN!' press. Rooster remains facing Piggy. Upload index.html to replace your current file; keep WAV in same directory.

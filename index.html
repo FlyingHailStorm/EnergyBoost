@@ -34,6 +34,9 @@ if(stage===0){
   reunionSound.pause();reunionSound.currentTime=0;
   reunionSound.play().catch(()=>{});
   result.innerHTML='<div><strong>Rooster is on his way! 🐓💋🐷</strong><span>Special delivery: one big kiss! ❤️</span></div>';
+  // Alternate the button text on every click, without requiring a reset.
+  stage=0;
+  boost.textContent='⚡ TOP UP MY ENERGY +100';
   confetti();
 }});
 again.addEventListener('click',()=>{
