@@ -31,6 +31,36 @@
 .reunion-scene.hug .reunion-pig{animation:pig-bounce .6s ease-in-out 3 .8s}
 .reunion-scene.hug .reunion-heart{animation:kiss-heart 1.4s ease-out 1.4s forwards}
 .reunion-scene.hug .reunion-rooster{animation:rooster-run 2.1s cubic-bezier(.24,.7,.3,1) forwards}
+
+/* Mobile polish */
+html{scroll-behavior:smooth}
+body{padding:clamp(10px,3vw,24px)}
+main{width:min(100%,480px);padding:clamp(19px,5vw,30px);box-shadow:0 18px 55px #a9476428}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.button{min-height:58px;margin-bottom:19px;line-height:1.3}
+.feature button{min-height:48px;font-size:15px;transition:transform .15s,background .15s}
+.feature button:active{transform:scale(.98)}
+.result{min-height:90px;padding:10px 4px;line-height:1.45}
+.features{gap:14px}
+.feature{box-shadow:0 5px 18px #d45d7a0d}
+@media(max-width:420px){.characters{font-size:clamp(48px,15vw,70px)}.tag{font-size:10px;letter-spacing:.05em}h1{font-size:clamp(29px,9vw,42px)}.feature{padding:15px 13px}.result strong{font-size:19px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.mini-scene{height:106px;position:relative;overflow:hidden;border-radius:16px;margin:12px 0 5px;background:linear-gradient(160deg,#fff4cc,#ffe5ef);border:1px solid #f8d1d7}
+.mini-scene[hidden]{display:none}
+.mini-rooster,.mini-pig,.mini-prop{position:absolute;bottom:19px;font-size:48px;line-height:1}
+.mini-rooster{left:0;transform:translateX(-60px)}
+.mini-rooster span{display:inline-block;transform:scaleX(-1)}
+.mini-pig{right:16px}
+.mini-prop{left:10%;font-size:28px;opacity:0}
+.mini-caption{position:absolute;bottom:2px;left:0;right:0;text-align:center;font-size:12px;font-weight:800;color:#a62d54}
+.mini-scene.animate .mini-rooster{animation:mini-run 2.3s ease-in-out forwards}
+.mini-scene.animate .mini-prop{animation:prop-delivery 2.3s ease-in-out forwards}
+.mini-scene.animate .mini-pig{animation:pig-bounce .5s 3 1.35s}
+@keyframes mini-run{0%{transform:translateX(-60px)}70%,100%{transform:translateX(min(54vw,210px))}}
+@keyframes prop-delivery{0%{transform:translateX(-30px);opacity:0}15%{opacity:1}70%,100%{transform:translateX(min(54vw,210px));opacity:1}}
+.mini-scene.night{background:linear-gradient(140deg,#29234e,#635b91);color:white;border-color:#8179ae}
+.mini-scene.night .mini-caption{color:#fff3c8}
+@media(prefers-reduced-motion:reduce){.mini-scene.animate .mini-rooster{transform:translateX(170px)}.mini-scene.animate .mini-prop{opacity:1;transform:translateX(170px)}}
 </style></head><body><main id="card"><span class="tag">🐓 ROOSTER'S RECHARGE STATION</span><div class="characters" aria-label="Rooster sends love to Piggy"><span>🐓</span><span class="heart">💗</span><span>🐷</span></div><h1>Hey Piggy! 💕</h1><p class="sub">Long week ahead? Your Rooster has you covered.</p><p>Whenever work drains your batteries, come back here for a little extra energy. ⚡</p><div class="meter" aria-label="Energy meter"><div class="meter-title"><span>🔋 Piggy's energy</span><span id="percent">24%</span></div><div class="track" role="progressbar" aria-label="Energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24" id="track"><div class="fill" id="fill"></div></div></div><button class="button" id="boost">⚡ TOP UP MY ENERGY +100</button><div class="result" id="result" aria-live="polite">Ready when you are, Piggy! 🐷</div><div id="reunion" class="reunion-scene" hidden role="img" aria-label="Rooster runs over to give Piggy a kiss"><span class="reunion-rooster"><span class="facing-pig">🐓</span></span><span class="reunion-pig">🐷</span><span class="reunion-heart" id="reunion-heart">💋💗</span><span class="reunion-caption" id="reunion-caption">A Rooster kiss for Piggy! ❤️</span></div><button class="reset" id="again" hidden>Need another boost? ↻</button>
 <section class="features" aria-label="More Piggy Power">
   <div class="feature">
@@ -46,6 +76,25 @@
     <button type="button" id="hotline-button">Call Rooster for encouragement ☎️</button>
     <div class="feature-output" id="hotline-output" aria-live="polite"></div>
   </div>
+
+<div class="feature">
+<h2>☕ Rooster's Coffee Delivery</h2>
+<p>One emergency coffee, delivered with love. Watch out for a little spill!</p>
+<button type="button" id="coffee-button">Bring Piggy a coffee ☕</button>
+<div id="coffee-scene" class="mini-scene" hidden aria-label="Rooster brings Piggy a coffee">
+<span class="mini-rooster"><span>🐓</span></span><span class="mini-prop" id="coffee-prop">☕</span><span class="mini-pig">🐷</span><span class="mini-caption" id="coffee-caption">Special delivery!</span>
+</div>
+<div class="feature-output" id="coffee-output" aria-live="polite"></div>
+</div>
+<div class="feature">
+<h2>🌙 Rooster's Goodnight Kiss</h2>
+<p>A little bedtime hug and kiss whenever Piggy needs one.</p>
+<button type="button" id="night-button">Tuck Piggy into bed 🌙</button>
+<div id="night-scene" class="mini-scene night" hidden aria-label="Rooster gives Piggy a goodnight kiss">
+<span class="mini-rooster"><span>🐓</span></span><span class="mini-prop" id="night-prop">💋</span><span class="mini-pig">🐷</span><span class="mini-caption">Sweet dreams, Piggy! ✨</span>
+</div>
+<div class="feature-output" id="night-output" aria-live="polite"></div>
+</div>
 </section>
 <div class="footer">Unlimited refills · No expiry · Sent with a smile 🐓❤️</div></main><script>
 (()=>{'use strict';const percent=document.getElementById('percent'),fill=document.getElementById('fill'),track=document.getElementById('track'),boost=document.getElementById('boost'),result=document.getElementById('result'),again=document.getElementById('again'),card=document.getElementById('card');const messages=['Fully charged! Go conquer your week, Piggy! 🌈','Emergency Rooster hug delivered! 🐓🤗🐷','+100 focus · +100 smiles · +100 good vibes 💖','You’ve got this, Piggy. Your Rooster believes in you! ✨'];let count=0,stage=0;const reunion=document.getElementById('reunion');
@@ -118,5 +167,34 @@ giftButton.addEventListener('click',showGift);
 hotlineButton.addEventListener('click',()=>{
   const next=hotlineMessages[Math.floor(Math.random()*hotlineMessages.length)];
   hotlineOutput.textContent=next;
+});
+
+const coffeeButton=document.getElementById('coffee-button');
+const coffeeScene=document.getElementById('coffee-scene');
+const coffeeOutput=document.getElementById('coffee-output');
+const coffeeProp=document.getElementById('coffee-prop');
+const coffeeCaption=document.getElementById('coffee-caption');
+const nightButton=document.getElementById('night-button');
+const nightScene=document.getElementById('night-scene');
+const nightOutput=document.getElementById('night-output');
+function replayScene(el){
+  el.hidden=false;
+  el.classList.remove('animate');
+  void el.offsetWidth;
+  el.classList.add('animate');
+}
+let coffeeCount=0;
+coffeeButton.addEventListener('click',()=>{
+  coffeeCount++;
+  const spill=coffeeCount%3===0;
+  coffeeProp.textContent=spill?'💦':'☕';
+  coffeeCaption.textContent=spill?'Oops! Rooster spilled a little! 😂':'One cappuccino for Miss Piggy! ☕';
+  coffeeOutput.textContent=spill?'Rooster promises to be more careful next time! 🐓😂':'Coffee delivered with extra love! 💗';
+  replayScene(coffeeScene);
+});
+nightButton.addEventListener('click',()=>{
+  document.getElementById('night-prop').textContent='💋💗';
+  nightOutput.textContent='Sweet dreams, Piggy. Your Rooster is sending you a goodnight kiss. 🌙✨';
+  replayScene(nightScene);
 });
 </script></body></html>
