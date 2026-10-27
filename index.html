@@ -259,8 +259,8 @@
           result.innerHTML = '<div><strong>' + messages[(count - 1) % messages.length] + '</strong><span></span></div>';
           result.querySelector('span').textContent = '';
           again.hidden = false;
-          boost.textContent = labels[labelIndex];
           labelIndex = (labelIndex + 1) % labels.length;
+          boost.textContent = labels[labelIndex];
           confetti();
         });
 
@@ -268,8 +268,8 @@
           setEnergy(24);
           result.textContent = 'Rooster is ready for another rescue! 🐓';
           again.hidden = true;
-          boost.textContent = labels[0];
           labelIndex = 0;
+          boost.textContent = labels[labelIndex];
         });
       })();
     </script>
