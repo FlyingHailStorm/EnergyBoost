@@ -61,7 +61,7 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .mini-scene.night{background:linear-gradient(140deg,#29234e,#635b91);color:white;border-color:#8179ae}
 .mini-scene.night .mini-caption{color:#fff3c8}
 @media(prefers-reduced-motion:reduce){.mini-scene.animate .mini-rooster{transform:translateX(170px)}.mini-scene.animate .mini-prop{opacity:1;transform:translateX(170px)}}
-</style></head><body><main id="card"><span class="tag">🐓 ROOSTER'S RECHARGE STATION</span><div class="characters" aria-label="Rooster sends love to Piggy"><span>🐓</span><span class="heart">💗</span><span>🐷</span></div><h1>Hey Piggy! 💕</h1><p class="sub">Long week ahead? Your Rooster has you covered.</p><p>Whenever work drains your batteries, come back here for a little extra energy. ⚡</p><div class="meter" aria-label="Energy meter"><div class="meter-title"><span>🔋 Piggy's energy</span><span id="percent">24%</span></div><div class="track" role="progressbar" aria-label="Energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24" id="track"><div class="fill" id="fill"></div></div></div><button class="button" id="boost">⚡ TOP UP MY ENERGY +100</button><div class="result" id="result" aria-live="polite">Ready when you are, Piggy! 🐷</div><div id="reunion" class="reunion-scene" hidden role="img" aria-label="Rooster runs over to give Piggy a kiss"><span class="reunion-rooster"><span class="facing-pig">🐓</span></span><span class="reunion-pig">🐷</span><span class="reunion-heart" id="reunion-heart">💋💗</span><span class="reunion-caption" id="reunion-caption">A Rooster kiss for Piggy! ❤️</span></div><button class="reset" id="again" hidden>Need another boost? ↻</button>
+</style></head><body><main id="card"><span class="tag">🐓 ROOSTER'S RECHARGE STATION</span><div class="characters" aria-label="Rooster sends love to Piggy"><span>🐓</span><span class="heart">💗</span><span>🐷</span></div><h1>Hey Piggy! 💕</h1><p class="sub">Long week ahead? Your Rooster has you covered.</p><p>Whenever work drains your batteries, come back here for a little extra energy. ⚡</p><div class="meter" aria-label="Energy meter"><div class="meter-title"><span>🔋 Piggy's energy</span><span id="percent">24%</span></div><div class="track" role="progressbar" aria-label="Energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24" id="track"><div class="fill" id="fill"></div></div></div><button class="button" id="boost">⚡ TOP UP MY ENERGY +100</button><div id="piggy-player" hidden style="margin:8px 0 14px"><audio id="piggy-audio-controls" controls preload="none" style="width:100%;max-width:100%"><source src="./piggy-power.mp3" type="audio/mpeg"><source src="./Piggy%20Power.wav" type="audio/wav">Your browser does not support audio playback.</audio><div id="piggy-audio-status" role="status" style="font-size:12px;margin-top:5px"></div></div><div class="result" id="result" aria-live="polite">Ready when you are, Piggy! 🐷</div><div id="reunion" class="reunion-scene" hidden role="img" aria-label="Rooster runs over to give Piggy a kiss"><span class="reunion-rooster"><span class="facing-pig">🐓</span></span><span class="reunion-pig">🐷</span><span class="reunion-heart" id="reunion-heart">💋💗</span><span class="reunion-caption" id="reunion-caption">A Rooster kiss for Piggy! ❤️</span></div><button class="reset" id="again" hidden>Need another boost? ↻</button>
 <section class="features" aria-label="More Piggy Power">
   <div class="feature">
     <h2>🎁 Piggy's Daily Mystery Gift</h2>
@@ -99,7 +99,7 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 <div class="footer">Unlimited refills · No expiry · Sent with a smile 🐓❤️</div></main><script>
 (()=>{'use strict';const percent=document.getElementById('percent'),fill=document.getElementById('fill'),track=document.getElementById('track'),boost=document.getElementById('boost'),result=document.getElementById('result'),again=document.getElementById('again'),card=document.getElementById('card');const messages=['Fully charged! Go conquer your week, Piggy! 🌈','Emergency Rooster hug delivered! 🐓🤗🐷','+100 focus · +100 smiles · +100 good vibes 💖','You’ve got this, Piggy. Your Rooster believes in you! ✨'];let count=0,stage=0;const reunion=document.getElementById('reunion');
 const reunionSound=new Audio('./rooster-reunion.wav');reunionSound.preload='auto';
-const piggySound=new Audio('./Piggy Power.wav');piggySound.preload='auto';
+const piggySound=new Audio('./piggy-power.mp3');piggySound.preload='metadata';
 function setEnergy(n){percent.textContent=n+'%';fill.style.width=n+'%';fill.style.background=n===100?'linear-gradient(90deg,#3bcf80,#98e458)':'linear-gradient(90deg,#ff996b,#ffcf43)';track.setAttribute('aria-valuenow',String(n));}function confetti(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;for(let i=0;i<18;i++){const el=document.createElement('span');el.className='spark';el.textContent=['💗','✨','⚡','🌈','🐷'][i%5];el.style.left=(10+Math.random()*80)+'%';el.style.bottom=(12+Math.random()*25)+'%';el.style.setProperty('--dx',((Math.random()-.5)*260)+'px');el.style.setProperty('--rot',(Math.random()*160-80)+'deg');card.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});}}boost.addEventListener('click',()=>{
 if(stage===0){
   count++;setEnergy(100);
@@ -108,7 +108,7 @@ if(stage===0){
   boost.textContent='💗 I WANT TO SEE MY MAN!';
   stage=1;again.hidden=false;confetti();
 }else if(stage===1){
-  piggySound.pause();
+  document.getElementById('piggy-audio-controls').pause();
   reunion.hidden=false;reunion.classList.remove('play','hug');void reunion.offsetWidth;
   const surprise=['kiss','hug','hearts'][Math.floor(Math.random()*3)];
   reunion.classList.add(surprise==='hug'?'hug':'play');
@@ -125,8 +125,11 @@ if(stage===0){
   confetti();
 }else{
   reunionSound.pause();
-  piggySound.pause();piggySound.currentTime=0;
-  piggySound.play().catch(()=>{});
+  const player=document.getElementById('piggy-player');
+  const audio=document.getElementById('piggy-audio-controls');
+  player.hidden=false;
+  audio.pause();audio.currentTime=0;
+  audio.play().then(()=>{document.getElementById('piggy-audio-status').textContent='🎵 Piggy Power is playing!';}).catch(()=>{document.getElementById('piggy-audio-status').textContent='Tap ▶ above to play Piggy Power.';});
   result.innerHTML='<div><strong>🐷 PIGGY POWER! 🎵</strong><span>Turn it up, Piggy! 💗</span></div>';
   stage=0;
   boost.textContent='⚡ TOP UP MY ENERGY +100';
@@ -135,7 +138,7 @@ if(stage===0){
 again.addEventListener('click',()=>{
 setEnergy(24);result.textContent='Rooster is ready for another rescue! 🐓';
 again.hidden=true;stage=0;boost.textContent='⚡ TOP UP MY ENERGY +100';
-reunion.hidden=true;reunion.classList.remove('play','hug');reunionSound.pause();piggySound.pause();piggySound.currentTime=0;
+reunion.hidden=true;reunion.classList.remove('play','hug');reunionSound.pause();document.getElementById('piggy-audio-controls').pause();document.getElementById('piggy-player').hidden=true;
 });})();
 
 const gifts=[
