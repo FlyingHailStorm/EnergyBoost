@@ -99,6 +99,7 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 <div class="footer">Unlimited refills · No expiry · Sent with a smile 🐓❤️</div></main><script>
 (()=>{'use strict';const percent=document.getElementById('percent'),fill=document.getElementById('fill'),track=document.getElementById('track'),boost=document.getElementById('boost'),result=document.getElementById('result'),again=document.getElementById('again'),card=document.getElementById('card');const messages=['Fully charged! Go conquer your week, Piggy! 🌈','Emergency Rooster hug delivered! 🐓🤗🐷','+100 focus · +100 smiles · +100 good vibes 💖','You’ve got this, Piggy. Your Rooster believes in you! ✨'];let count=0,stage=0;const reunion=document.getElementById('reunion');
 const reunionSound=new Audio('./rooster-reunion.wav');reunionSound.preload='auto';
+const piggySound=new Audio('./Piggy Power.wav');piggySound.preload='auto';
 function setEnergy(n){percent.textContent=n+'%';fill.style.width=n+'%';fill.style.background=n===100?'linear-gradient(90deg,#3bcf80,#98e458)':'linear-gradient(90deg,#ff996b,#ffcf43)';track.setAttribute('aria-valuenow',String(n));}function confetti(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;for(let i=0;i<18;i++){const el=document.createElement('span');el.className='spark';el.textContent=['💗','✨','⚡','🌈','🐷'][i%5];el.style.left=(10+Math.random()*80)+'%';el.style.bottom=(12+Math.random()*25)+'%';el.style.setProperty('--dx',((Math.random()-.5)*260)+'px');el.style.setProperty('--rot',(Math.random()*160-80)+'deg');card.appendChild(el);el.addEventListener('animationend',()=>el.remove(),{once:true});}}boost.addEventListener('click',()=>{
 if(stage===0){
   count++;setEnergy(100);
@@ -106,7 +107,8 @@ if(stage===0){
   result.querySelector('span').textContent=messages[(count-1)%messages.length];
   boost.textContent='💗 I WANT TO SEE MY MAN!';
   stage=1;again.hidden=false;confetti();
-}else{
+}else if(stage===1){
+  piggySound.pause();
   reunion.hidden=false;reunion.classList.remove('play','hug');void reunion.offsetWidth;
   const surprise=['kiss','hug','hearts'][Math.floor(Math.random()*3)];
   reunion.classList.add(surprise==='hug'?'hug':'play');
@@ -118,6 +120,14 @@ if(stage===0){
   result.innerHTML='<div><strong>Rooster is on his way! 🐓❤️🐷</strong><span></span></div>';
   result.querySelector('span').textContent=surpriseText;
   // Alternate the button text on every click, without requiring a reset.
+  stage=2;
+  boost.textContent='🐷 PIGGY POWER';
+  confetti();
+}else{
+  reunionSound.pause();
+  piggySound.pause();piggySound.currentTime=0;
+  piggySound.play().catch(()=>{});
+  result.innerHTML='<div><strong>🐷 PIGGY POWER! 🎵</strong><span>Turn it up, Piggy! 💗</span></div>';
   stage=0;
   boost.textContent='⚡ TOP UP MY ENERGY +100';
   confetti();
@@ -125,7 +135,7 @@ if(stage===0){
 again.addEventListener('click',()=>{
 setEnergy(24);result.textContent='Rooster is ready for another rescue! 🐓';
 again.hidden=true;stage=0;boost.textContent='⚡ TOP UP MY ENERGY +100';
-reunion.hidden=true;reunion.classList.remove('play','hug');reunionSound.pause();
+reunion.hidden=true;reunion.classList.remove('play','hug');reunionSound.pause();piggySound.pause();piggySound.currentTime=0;
 });})();
 
 const gifts=[
